@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'JcPlayer'
+
+    publishedGroupId = 'io.github.jeancsanchez.jcplayer'
+    libraryName = 'JCPlayer'
+    artifact = 'JcPlayer'
+
+    libraryDescription = 'A simple way of make an audio player using custom playlists for Android applications.'
+
+    siteUrl = 'https://github.com/jeancsanchez/JCPlayer'
+    gitUrl = 'https://github.com/jeancsanchez/JCPlayer.git'
+
+    libraryVersion = '2.6.10-alpha'
+
+    developerId = 'jeancsanchez'
+    developerName = 'Jean Carlos'
+    developerEmail = 'jeancs.patricio@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 2
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+// noinspection SpellCheckingInspection
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // espresso UI Testing
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+    androidTestCompile "com.android.support.test:runner:$rootProject.ext.espressoRulesVersion"
+    androidTestCompile "com.android.support.test:rules:$rootProject.ext.espressoRulesVersion"
+
+    // resolving espresso conflicts
+    androidTestCompile "com.android.support:support-annotations:$rootProject.supportVersion"
+    androidTestCompile "com.android.support:support-v4:$rootProject.supportVersion"
+    androidTestCompile "com.android.support:recyclerview-v7:$rootProject.supportVersion"
+    androidTestCompile "com.android.support:appcompat-v7:$rootProject.supportVersion"
+    androidTestCompile "com.android.support:design:$rootProject.supportVersion"
+
+    // dependencies for local unit tests
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+    testCompile "org.powermock:powermock-module-junit4:$rootProject.ext.powerMockito"
+    testCompile "org.powermock:powermock-api-mockito:$rootProject.ext.powerMockito"
+
+    // support
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
+
+    // others libraries
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.easing:library:1.0.1@aar'
+    compile 'com.daimajia.androidanimations:library:1.1.3@aar'
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
